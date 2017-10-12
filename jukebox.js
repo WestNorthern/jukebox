@@ -7,10 +7,11 @@ class Jukebox {
     this.audioElement = document.createElement('audio');
     this.loadSong();
 
-    // Goes to next song, loops back to start at end of playlist
+    // Goes to next song (requires ES 6 arrow function)
 
 
-    this.audioElement.addEventListener('ended', function () {
+    this.audioElement.addEventListener('ended', () => {
+    	console.log(this);
     	if (this.songNo === this.playlist.length - 1){
     		this.playlist = playlist;
     		this.songNo = 0;
@@ -75,12 +76,19 @@ class Jukebox {
 
 
 	}
+	
 
 }
 
 class Playlist{
 	constructor(){
-		
+		this.plist = [];
+	}
+	addSong(song){
+		this.plist.push(song);
+	}
+	removeSong(){
+
 	}
 }
 
