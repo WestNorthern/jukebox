@@ -32,7 +32,6 @@ class Jukebox {
 		// End Stop Button
 
 
-
 		// Next Button
     let next = document.createElement('div');
 		next.textContent = "Next";
@@ -146,6 +145,11 @@ class Jukebox {
 		let display = `${this.playlist[(this.songNo - 1) % this.playlist.length]} || <strong>${this.current}</strong> || ${this.playlist[(this.songNo + 1) % this.playlist.length]}`;
 		displaySongs.innerHTML = display;
 	}
+
+	addPlaylist(newPlaylist){
+		this.playlist = [];
+		this.playlist = newPlaylist;
+	}
 	
 }
 
@@ -174,7 +178,40 @@ let songArray = ['songs/Anitek.mp3', 'songs/CigBrek.mp3',
 								'songs/Stay.mp3', 'songs/Tonton.mp3', 
 								'songs/Wasaru.mp3'];
 
+let newArray = ['songs/Before.mp3', 'songs/Igor.mp3', 
+								'songs/Lipstick.mp3', 'songs/Still.mp3', 
+								'songs/Survive.mp3', 'songs/Nostalgia.mp3',
+								'songs/IbnHiz.mp3', 'songs/Shiver.mp3'];
+
+let objectSongs = [{songTitle: 'Before',
+									  artist: 'Smoggy Bear',
+									  analBumCover: '',
+									  url: 'songs/Before.jpg'},
+
+									  {songTitle: 'Igor',
+									  artist: 'Baz Amataz',
+									  analBumCover: 'album.jpg',
+									  url: 'songs/Igor.mp3'},
+
+									  {songTitle: 'Lipstick',
+									  artist: 'Quizmistress',
+									  analBumCover: 'album.jpg',
+									  url: 'songs/Lipstick.mp3'},
+
+									  {songTitle: 'Still',
+									  artist: 'Moog',
+									  analBumCover: 'album.jpg',
+									  url: 'songs/Still.mp3'},
+
+									  {songTitle: 'Survive',
+									  artist: 'artist',
+									  analBumCover: 'album.jpg',
+									  url: 'songs/Survive.mp3'},]
+
+
 
 let myJuke = new Jukebox(songArray);
+
+myJuke.addPlaylist(newArray);
 
 
