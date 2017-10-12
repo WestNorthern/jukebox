@@ -50,8 +50,18 @@ class Jukebox {
 		back.addEventListener('click', () => { this.previousSong() });
 		// End Back Button
 
-    
+		// End of Buttons
+
+		// Song Timer
+
+		let songTimer = document.createElement('div');
+		songTimer.textContent = "0 / 0";
+		songTimer.setAttribute('id', 'songTimer');
+		document.body.appendChild(songTimer);
+
+
     this.audioElement = document.createElement('audio');
+    this.audioElement.setAttribute('ontimeupdate', "document.getElementById('songTimer').innerHTML = Math.floor(this.currentTime) + ' : ' + Math.floor(this.duration);");
     this.loadSong();
 
 
@@ -122,10 +132,8 @@ class Jukebox {
 			this.playSong();
 		}
 
-
 	}
 	
-
 }
 
 class Playlist{
