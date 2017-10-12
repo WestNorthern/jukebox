@@ -20,7 +20,7 @@ class Jukebox {
 		pause.setAttribute('id', 'play');
 		document.body.appendChild(pause);
 		pause.addEventListener('click', () => { this.pauseSong() });
-		// End Play Button
+		// End Pause Button
 
 
 		// Stop Button
@@ -29,7 +29,7 @@ class Jukebox {
 		stop.setAttribute('id', 'stop');
 		document.body.appendChild(stop);
 		stop.addEventListener('click', () => { this.loadSong(); });
-		// End Play Button
+		// End Stop Button
 
 
 
@@ -39,7 +39,7 @@ class Jukebox {
 		next.setAttribute('id', 'next');
 		document.body.appendChild(next);
 		next.addEventListener('click', () => { this.nextSong() });
-		// End Play Button
+		// End Next Button
 
 
 		// Back Button
@@ -48,7 +48,7 @@ class Jukebox {
 		back.setAttribute('id', 'back');
 		document.body.appendChild(back);
 		back.addEventListener('click', () => { this.previousSong() });
-		// End Play Button
+		// End Back Button
 
     
     this.audioElement = document.createElement('audio');
@@ -135,10 +135,17 @@ class Playlist{
 	addSong(song){
 		this.plist.push(song);
 	}
+	addSongs(songs){
+		for (var i = 0; i < songs.length; i++) {
+			this.plist.push(songs[i]);
+		}
+	}
 	removeSong(){
 
 	}
 }
+
+
 
 let songArray = ['songs/Anitek.mp3', 'songs/CigBrek.mp3', 
 								'songs/Craze.mp3', 'songs/Math.mp3', 
@@ -149,36 +156,4 @@ let songArray = ['songs/Anitek.mp3', 'songs/CigBrek.mp3',
 
 let myJuke = new Jukebox(songArray);
 
-// // let play = document.getElementById('play');
-// // let pause = document.getElementById('pause');
-// let stop = document.getElementById('stop');
-// let next = document.getElementById('next');
-// let last = document.getElementById('last');
 
-// stop.addEventListener('click', function(){
-
-// 	myJuke.loadSong();
-// 	document.body.style.background = 'red';
-
-// });
-
-// play.addEventListener('click', function(){
-
-// 	myJuke.playSong();
-
-// });
-
-// pause.addEventListener('click', function(){
-
-// 	myJuke.pauseSong();
-// });
-
-// next.addEventListener('click', function(){
-
-// 	myJuke.nextSong();
-// });
-
-// last.addEventListener('click', function(){
-
-// 	myJuke.previousSong();
-// });
