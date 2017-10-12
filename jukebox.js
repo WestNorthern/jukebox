@@ -78,6 +78,12 @@ class Jukebox {
 
 }
 
+class Playlist{
+	constructor(){
+		
+	}
+}
+
 let songArray = ['songs/Anitek.mp3', 'songs/CigBrek.mp3', 
 								'songs/Craze.mp3', 'songs/Math.mp3', 
 								'songs/Rose.mp3', 'songs/Ski.mp3',
