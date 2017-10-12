@@ -1,22 +1,78 @@
 class Jukebox {
 	constructor(playlist){
     this.playlist = playlist;
-
-    this.current = this.playlist[0];
+    this.songNo = 0;
+    this.current = this.playlist[this.songNo];
     
     this.audioElement = document.createElement('audio');
     this.loadSong();
 
+    // Goes to next song, loops back to start at end of playlist
+
+
+    this.audioElement.addEventListener('ended', function () {
+    	if (this.songNo === this.playlist.length - 1){
+    		this.playlist = playlist;
+    		this.songNo = 0;
+    		this.current = this.playlist[this.songNo];
+    
+    		this.audioElement = document.createElement('audio');
+    		this.loadSong();
+    	}
+    	else{
+    		this.nextSong();
+    	}
+
+    });
+
 	}
+
 	playSong(){
 		this.audioElement.load;
 		this.audioElement.play();
 	}
+
 	pauseSong(){
 		this.audioElement.pause();
 	}
+
 	loadSong(){
 		this.audioElement.setAttribute('src', this.current);
+
+	}
+
+	nextSong(){
+		if (this.songNo === (this.playlist.length - 1)){
+  		this.songNo = 0;
+  		this.current = this.playlist[this.songNo];
+  		this.audioElement.load;
+  		this.playSong();
+    }
+    else{
+	    this.songNo++;
+			this.current = this.playlist[this.songNo];
+			this.audioElement.setAttribute('src', this.current);
+			this.audioElement.load;
+			this.playSong();
+		}
+
+	}
+
+	previousSong(){
+		if (this.songNo === 0){
+			this.songNo = this.playlist.length - 1;
+			this.audioElement.load;
+			this.playSong;
+			console.log(this.songNo);
+		}
+		else{
+			--this.songNo;
+			this.current = this.playlist[this.songNo];
+			this.audioElement.setAttribute('src', this.current);
+			this.audioElement.load;
+			this.playSong();
+		}
+
 
 	}
 
@@ -34,6 +90,8 @@ let myJuke = new Jukebox(songArray);
 let play = document.getElementById('play');
 let pause = document.getElementById('pause');
 let stop = document.getElementById('stop');
+let next = document.getElementById('next');
+let last = document.getElementById('last');
 
 stop.addEventListener('click', function(){
 
@@ -51,4 +109,14 @@ play.addEventListener('click', function(){
 pause.addEventListener('click', function(){
 
 	myJuke.pauseSong();
+});
+
+next.addEventListener('click', function(){
+
+	myJuke.nextSong();
+});
+
+last.addEventListener('click', function(){
+
+	myJuke.previousSong();
 });
