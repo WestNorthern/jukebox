@@ -50,8 +50,25 @@ class Jukebox {
 		back.addEventListener('click', () => { this.previousSong() });
 		// End Back Button
 
-    
+		// End of Buttons
+
+		// Song Timer
+
+		let songTimer = document.createElement('div');
+		songTimer.textContent = "0 / 0";
+		songTimer.setAttribute('id', 'songTimer');
+		document.body.appendChild(songTimer);
+
+		// Display Songs
+		
+		let displaySongs = document.createElement('div');
+		displaySongs.textContent = "---";
+		displaySongs.setAttribute('id', 'displaySongs');
+		document.body.appendChild(displaySongs);
+
+
     this.audioElement = document.createElement('audio');
+    this.audioElement.setAttribute('ontimeupdate', "document.getElementById('songTimer').innerHTML = Math.floor(this.currentTime) + ' : ' + Math.floor(this.duration);");
     this.loadSong();
 
 
@@ -77,8 +94,9 @@ class Jukebox {
 	}
 
 	playSong(){
-		this.audioElement.load;
+		this.audioElement.load();
 		this.audioElement.play();
+		this.displaySongs()
 	}
 
 	pauseSong(){
@@ -94,14 +112,14 @@ class Jukebox {
 		if (this.songNo === (this.playlist.length - 1)){
   		this.songNo = 0;
   		this.current = this.playlist[this.songNo];
-  		this.audioElement.load;
+  		this.loadSong();
   		this.playSong();
     }
     else{
 	    this.songNo++;
 			this.current = this.playlist[this.songNo];
 			this.audioElement.setAttribute('src', this.current);
-			this.audioElement.load;
+			this.loadSong();
 			this.playSong();
 		}
 
@@ -110,22 +128,25 @@ class Jukebox {
 	previousSong(){
 		if (this.songNo === 0){
 			this.songNo = this.playlist.length - 1;
-			this.audioElement.load;
-			this.playSong;
+			this.loadSong();
+			this.playSong();
 			console.log(this.songNo);
 		}
 		else{
 			--this.songNo;
 			this.current = this.playlist[this.songNo];
 			this.audioElement.setAttribute('src', this.current);
-			this.audioElement.load;
+			this.audioElement.load();
 			this.playSong();
 		}
 
+	}
 
+	displaySongs(){
+		let display = `${this.playlist[(this.songNo - 1) % this.playlist.length]} || <strong>${this.current}</strong> || ${this.playlist[(this.songNo + 1) % this.playlist.length]}`;
+		displaySongs.innerHTML = display;
 	}
 	
-
 }
 
 class Playlist{
