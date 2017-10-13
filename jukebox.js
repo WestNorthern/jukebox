@@ -93,9 +93,9 @@ class Jukebox {
 	}
 
 	playSong(){
-		this.audioElement.load();
+		// this.audioElement.load();
 		this.audioElement.play();
-		this.displaySongs()
+		this.displaySongs();
 	}
 
 	pauseSong(){
@@ -127,6 +127,7 @@ class Jukebox {
 	previousSong(){
 		if (this.songNo === 0){
 			this.songNo = this.playlist.length - 1;
+			this.current = this.playlist[this.songNo].url;
 			this.loadSong();
 			this.playSong();
 			console.log(this.songNo);
