@@ -2,7 +2,7 @@ class Jukebox {
 	constructor(playlist){
     this.playlist = playlist;
     this.songNo = 0;
-    this.current = this.playlist[this.songNo];
+    this.current = this.playlist[this.songNo].url;
 
     // Create buttons list
 
@@ -30,7 +30,6 @@ class Jukebox {
 		document.body.appendChild(stop);
 		stop.addEventListener('click', () => { this.loadSong(); });
 		// End Stop Button
-
 
 
 		// Next Button
@@ -94,9 +93,9 @@ class Jukebox {
 	}
 
 	playSong(){
-		this.audioElement.load();
+		// this.audioElement.load();
 		this.audioElement.play();
-		this.displaySongs()
+		this.displaySongs();
 	}
 
 	pauseSong(){
@@ -111,13 +110,13 @@ class Jukebox {
 	nextSong(){
 		if (this.songNo === (this.playlist.length - 1)){
   		this.songNo = 0;
-  		this.current = this.playlist[this.songNo];
+  		this.current = this.playlist[this.songNo].url;
   		this.loadSong();
   		this.playSong();
     }
     else{
 	    this.songNo++;
-			this.current = this.playlist[this.songNo];
+			this.current = this.playlist[this.songNo].url;
 			this.audioElement.setAttribute('src', this.current);
 			this.loadSong();
 			this.playSong();
@@ -128,13 +127,14 @@ class Jukebox {
 	previousSong(){
 		if (this.songNo === 0){
 			this.songNo = this.playlist.length - 1;
+			this.current = this.playlist[this.songNo].url;
 			this.loadSong();
 			this.playSong();
 			console.log(this.songNo);
 		}
 		else{
 			--this.songNo;
-			this.current = this.playlist[this.songNo];
+			this.current = this.playlist[this.songNo].url;
 			this.audioElement.setAttribute('src', this.current);
 			this.audioElement.load();
 			this.playSong();
@@ -143,8 +143,20 @@ class Jukebox {
 	}
 
 	displaySongs(){
-		let display = `${this.playlist[(this.songNo - 1) % this.playlist.length]} || <strong>${this.current}</strong> || ${this.playlist[(this.songNo + 1) % this.playlist.length]}`;
+			let lastSong = '---'
+			if (this.playlist[(this.songNo - 1)] == undefined){
+				lastSong = '---'
+			}
+			else {
+				lastSong =  this.playlist[this.songNo - 1].songTitle;
+			}
+		let display = `${lastSong} || <strong>${this.playlist[this.songNo].songTitle}</strong> || ${this.playlist[(this.songNo + 1) % this.playlist.length].songTitle}`;
 		displaySongs.innerHTML = display;
+	}
+
+	addPlaylist(newPlaylist){
+		this.playlist = [];
+		this.playlist = newPlaylist;
 	}
 	
 }
@@ -174,7 +186,40 @@ let songArray = ['songs/Anitek.mp3', 'songs/CigBrek.mp3',
 								'songs/Stay.mp3', 'songs/Tonton.mp3', 
 								'songs/Wasaru.mp3'];
 
+let newArray = ['songs/Before.mp3', 'songs/Igor.mp3', 
+								'songs/Lipstick.mp3', 'songs/Still.mp3', 
+								'songs/Survive.mp3', 'songs/Nostalgia.mp3',
+								'songs/IbnHiz.mp3', 'songs/Shiver.mp3'];
 
-let myJuke = new Jukebox(songArray);
+let objectSongs = [{songTitle: 'Before',
+									  artist: 'Smoggy Bear',
+									  analBumCover: 'albumCovers/.jpg',
+									  url: 'songs/Before.mp3'},
+
+									  {songTitle: 'Igor',
+									  artist: 'Baz Amataz',
+									  analBumCover: 'albumCovers/.jpg',
+									  url: 'songs/Igor.mp3'},
+
+									  {songTitle: 'Lipstick',
+									  artist: 'Quizmistress',
+									  analBumCover: 'albumCovers/.jpg',
+									  url: 'songs/Lipstick.mp3'},
+
+									  {songTitle: 'Still',
+									  artist: 'Moog',
+									  analBumCover: 'albumCovers/.jpg',
+									  url: 'songs/Still.mp3'},
+
+									  {songTitle: 'Survive',
+									  artist: 'Frill 5 and the Gib-Dogs',
+									  analBumCover: 'albumCovers/.jpg',
+									  url: 'songs/Survive.mp3'},];
+
+
+
+let myJuke = new Jukebox(objectSongs);
+
+// myJuke.addPlaylist(newArray);
 
 
