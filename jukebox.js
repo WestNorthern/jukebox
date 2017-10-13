@@ -65,6 +65,11 @@ class Jukebox {
 		displaySongs.setAttribute('id', 'displaySongs');
 		document.body.appendChild(displaySongs);
 
+		let displayArtist = document.createElement('div');
+		displayArtist.textContent = "---";
+		displayArtist.setAttribute('id', 'displayArtist');
+		document.body.appendChild(displayArtist);
+
 
     this.audioElement = document.createElement('audio');
     this.audioElement.setAttribute('ontimeupdate', "document.getElementById('songTimer').innerHTML = Math.floor(this.currentTime) + ' : ' + Math.floor(this.duration);");
@@ -96,6 +101,7 @@ class Jukebox {
 		// this.audioElement.load();
 		this.audioElement.play();
 		this.displaySongs();
+		this.displayArtist();
 	}
 
 	pauseSong(){
@@ -152,6 +158,18 @@ class Jukebox {
 			}
 		let display = `${lastSong} || <strong>${this.playlist[this.songNo].songTitle}</strong> || ${this.playlist[(this.songNo + 1) % this.playlist.length].songTitle}`;
 		displaySongs.innerHTML = display;
+	}
+
+	displayArtist(){
+			let lastArtist = '---'
+			if (this.playlist[(this.songNo - 1)] == undefined){
+				lastArtist = '---'
+			}
+			else {
+				lastArtist =  this.playlist[this.songNo - 1].artist;
+			}
+		let display = `${lastArtist} || <strong>${this.playlist[this.songNo].artist}</strong> || ${this.playlist[(this.songNo + 1) % this.playlist.length].artist}`;
+		displayArtist.innerHTML = display;
 	}
 
 	addPlaylist(newPlaylist){
