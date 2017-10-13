@@ -2,7 +2,7 @@ class Jukebox {
 	constructor(playlist){
     this.playlist = playlist;
     this.songNo = 0;
-    this.current = this.playlist[this.songNo];
+    this.current = this.playlist[this.songNo].url;
 
     // Create buttons list
 
@@ -110,13 +110,13 @@ class Jukebox {
 	nextSong(){
 		if (this.songNo === (this.playlist.length - 1)){
   		this.songNo = 0;
-  		this.current = this.playlist[this.songNo];
+  		this.current = this.playlist[this.songNo].url;
   		this.loadSong();
   		this.playSong();
     }
     else{
 	    this.songNo++;
-			this.current = this.playlist[this.songNo];
+			this.current = this.playlist[this.songNo].url;
 			this.audioElement.setAttribute('src', this.current);
 			this.loadSong();
 			this.playSong();
@@ -133,7 +133,7 @@ class Jukebox {
 		}
 		else{
 			--this.songNo;
-			this.current = this.playlist[this.songNo];
+			this.current = this.playlist[this.songNo].url;
 			this.audioElement.setAttribute('src', this.current);
 			this.audioElement.load();
 			this.playSong();
@@ -142,7 +142,14 @@ class Jukebox {
 	}
 
 	displaySongs(){
-		let display = `${this.playlist[(this.songNo - 1) % this.playlist.length]} || <strong>${this.current}</strong> || ${this.playlist[(this.songNo + 1) % this.playlist.length]}`;
+			let lastSong = '---'
+			if (this.playlist[(this.songNo - 1)] == undefined){
+				lastSong = '---'
+			}
+			else {
+				lastSong =  this.playlist[this.songNo - 1].songTitle;
+			}
+		let display = `${lastSong} || <strong>${this.playlist[this.songNo].songTitle}</strong> || ${this.playlist[(this.songNo + 1) % this.playlist.length].songTitle}`;
 		displaySongs.innerHTML = display;
 	}
 
@@ -185,33 +192,33 @@ let newArray = ['songs/Before.mp3', 'songs/Igor.mp3',
 
 let objectSongs = [{songTitle: 'Before',
 									  artist: 'Smoggy Bear',
-									  analBumCover: '',
-									  url: 'songs/Before.jpg'},
+									  analBumCover: 'albumCovers/.jpg',
+									  url: 'songs/Before.mp3'},
 
 									  {songTitle: 'Igor',
 									  artist: 'Baz Amataz',
-									  analBumCover: 'album.jpg',
+									  analBumCover: 'albumCovers/.jpg',
 									  url: 'songs/Igor.mp3'},
 
 									  {songTitle: 'Lipstick',
 									  artist: 'Quizmistress',
-									  analBumCover: 'album.jpg',
+									  analBumCover: 'albumCovers/.jpg',
 									  url: 'songs/Lipstick.mp3'},
 
 									  {songTitle: 'Still',
 									  artist: 'Moog',
-									  analBumCover: 'album.jpg',
+									  analBumCover: 'albumCovers/.jpg',
 									  url: 'songs/Still.mp3'},
 
 									  {songTitle: 'Survive',
-									  artist: 'artist',
-									  analBumCover: 'album.jpg',
-									  url: 'songs/Survive.mp3'},]
+									  artist: 'Frill 5 and the Gib-Dogs',
+									  analBumCover: 'albumCovers/.jpg',
+									  url: 'songs/Survive.mp3'},];
 
 
 
-let myJuke = new Jukebox(songArray);
+let myJuke = new Jukebox(objectSongs);
 
-myJuke.addPlaylist(newArray);
+// myJuke.addPlaylist(newArray);
 
 
