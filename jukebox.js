@@ -6,10 +6,11 @@ class Jukebox {
 
     // Create audio element
 		this.audioElement = document.createElement('audio');
+		this.loadSong();
 
     // Create Div to hold and style jukebox contents
 
-    let playbox = document.createElement('DIV');
+    let playbox = document.createElement('div');
     document.body.appendChild(playbox);
     playbox.setAttribute('style', 'margin: 0 auto; text-align: center; background: #4ABDAC; padding: 20px; border: 3px solid #F7B733;');
 
@@ -78,13 +79,13 @@ class Jukebox {
 		songTimer.setAttribute('class', 'display');
 		songTimer.setAttribute('style', 'width: 200px; height: 30px; font-size: 1.3em; border: 2px solid #F7B733; line-height: 30px; text-align: center; color: ghostwhite; margin: 5px auto; margin-top: 15px; padding: 5px; background: #FC4A1A; border-radius: 5px;');
 		playbox.appendChild(songTimer);
-    this.loadSong();
     this.audioElement.addEventListener('timeupdate', function(){
     	let currentMin = Math.floor(this.currentTime / 60).toString();
     	let currentSec = Math.floor(this.currentTime - Math.floor(this.currentTime / 60) * 60).toString();
 
     	let durationMin = Math.floor(this.duration / 60).toString();
     	let durationSec = Math.floor(this.duration - Math.floor(this.duration / 60) * 60).toString();
+
 
     	if (currentSec.length < 2){
     		currentSec = `0${currentSec}`;
@@ -94,7 +95,7 @@ class Jukebox {
     		durationSec = `0${durationSec}`;
     	}
 
-    	document.getElementById('songTimer').innerHTML = `${currentMin}:${currentSec} )( ${durationMin}:${durationSec}`;
+    	document.getElementById('songTimer').innerHTML = `${currentMin}:${currentSec} // ${durationMin}:${durationSec}`;
 
     });
 
