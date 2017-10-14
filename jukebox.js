@@ -4,8 +4,13 @@ class Jukebox {
     this.songNo = 0;
     this.current = this.playlist[this.songNo].url;
 
+    // Create audio element
+		this.audioElement = document.createElement('audio');
+		this.loadSong();
+
     // Create Div to hold and style jukebox contents
-    let playbox = document.createElement('DIV');
+
+    let playbox = document.createElement('div');
     document.body.appendChild(playbox);
     playbox.setAttribute('style', 'margin: 0 auto; text-align: center; background: #4ABDAC; padding: 20px; border: 3px solid #F7B733;');
 
@@ -74,6 +79,25 @@ class Jukebox {
 		songTimer.setAttribute('class', 'display');
 		songTimer.setAttribute('style', 'width: 200px; height: 30px; font-size: 1.3em; border: 2px solid #F7B733; line-height: 30px; text-align: center; color: ghostwhite; margin: 5px auto; margin-top: 15px; padding: 5px; background: #FC4A1A; border-radius: 5px;');
 		playbox.appendChild(songTimer);
+    this.audioElement.addEventListener('timeupdate', function(){
+    	let currentMin = Math.floor(this.currentTime / 60).toString();
+    	let currentSec = Math.floor(this.currentTime - Math.floor(this.currentTime / 60) * 60).toString();
+
+    	let durationMin = Math.floor(this.duration / 60).toString();
+    	let durationSec = Math.floor(this.duration - Math.floor(this.duration / 60) * 60).toString();
+
+
+    	if (currentSec.length < 2){
+    		currentSec = `0${currentSec}`;
+    	}
+
+    	if (durationSec.length < 2){
+    		durationSec = `0${durationSec}`;
+    	}
+
+    	document.getElementById('songTimer').innerHTML = `${currentMin}:${currentSec} // ${durationMin}:${durationSec}`;
+
+    });
 
 		// Display Songs
 		
@@ -81,7 +105,7 @@ class Jukebox {
 		displaySongs.textContent = "---";
 		displaySongs.setAttribute('id', 'displaySongs');
 		displaySongs.setAttribute('class', 'display');
-		displaySongs.setAttribute('style', 'width: 600px; height: 30px; font-size: 1.3em; border: 2px solid #F7B733; line-height: 30px; text-align: center; color: ghostwhite; margin: 5px auto; padding: 5px; background: #FC4A1A; border-radius: 5px;');
+		displaySongs.setAttribute('style', 'width: 300px; height: 30px; font-size: 1.3em; border: 2px solid #F7B733; line-height: 30px; text-align: center; color: ghostwhite; margin: 5px auto; padding: 5px; background: #FC4A1A; border-radius: 5px;');
 		playbox.appendChild(displaySongs);
 
 		// Display Artist
@@ -90,7 +114,7 @@ class Jukebox {
 		displayArtist.textContent = "---";
 		displayArtist.setAttribute('id', 'displayArtist');
 		displayArtist.setAttribute('class', 'display');
-		displayArtist.setAttribute('style', 'width: 600px; height: 30px; font-size: 1.3em; border: 2px solid #F7B733; line-height: 30px; text-align: center; color: ghostwhite; margin: 5px auto; padding: 5px; background: #FC4A1A; border-radius: 5px;');
+		displayArtist.setAttribute('style', 'width: 500px; height: 30px; font-size: 1.3em; border: 2px solid #F7B733; line-height: 30px; text-align: center; color: ghostwhite; margin: 5px auto; padding: 5px; background: #FC4A1A; border-radius: 5px;');
 		playbox.appendChild(displayArtist);
 
 		// Display Album Cover
@@ -102,11 +126,6 @@ class Jukebox {
 		displayAlbumCover.setAttribute('src', `${this.playlist[this.songNo].analBumCover}`);
 		displayAlbumCover.setAttribute('style', 'width: 200px; height: 200px; padding: 10px; border: 2px solid #F7B733; background: ghostwhite;');
 		playbox.appendChild(displayAlbumCover);
-
-
-    this.audioElement = document.createElement('audio');
-    this.audioElement.setAttribute('ontimeupdate', "document.getElementById('songTimer').innerHTML = Math.floor(this.currentTime) + ' : ' + Math.floor(this.duration);");
-    this.loadSong();
 
 
     // Goes to next song (requires ES 6 arrow function)
