@@ -65,6 +65,22 @@ class Jukebox {
 		displaySongs.setAttribute('id', 'displaySongs');
 		document.body.appendChild(displaySongs);
 
+		// Display Artist
+
+		let displayArtist = document.createElement('div');
+		displayArtist.textContent = "---";
+		displayArtist.setAttribute('id', 'displayArtist');
+		document.body.appendChild(displayArtist);
+
+		// Display Album Cover
+
+		let displayAlbumCover = document.createElement('img');
+		displayAlbumCover.textContent = "---";
+		displayAlbumCover.setAttribute('id', 'displayAlbumCover');
+		displayAlbumCover.setAttribute('src', `${this.playlist[this.songNo].analBumCover}`);
+		displayAlbumCover.setAttribute('style', 'width: 200px; height: 200px;');
+		document.body.appendChild(displayAlbumCover);
+
 
     this.audioElement = document.createElement('audio');
     this.audioElement.setAttribute('ontimeupdate', "document.getElementById('songTimer').innerHTML = Math.floor(this.currentTime) + ' : ' + Math.floor(this.duration);");
@@ -96,6 +112,8 @@ class Jukebox {
 		// this.audioElement.load();
 		this.audioElement.play();
 		this.displaySongs();
+		this.displayArtist();
+		this.displayAlbumCover();
 	}
 
 	pauseSong(){
@@ -154,6 +172,24 @@ class Jukebox {
 		displaySongs.innerHTML = display;
 	}
 
+	displayArtist(){
+			let lastArtist = '---'
+			if (this.playlist[(this.songNo - 1)] == undefined){
+				lastArtist = '---'
+			}
+			else {
+				lastArtist =  this.playlist[this.songNo - 1].artist;
+			}
+		let display = `${lastArtist} || <strong>${this.playlist[this.songNo].artist}</strong> || ${this.playlist[(this.songNo + 1) % this.playlist.length].artist}`;
+		displayArtist.innerHTML = display;
+	}
+
+	displayAlbumCover(){
+		
+		displayAlbumCover.setAttribute('src', `${this.playlist[this.songNo].analBumCover}`);
+		displayAlbumCover.setAttribute('style', 'width:200px; height:200px;');
+	}
+
 	addPlaylist(newPlaylist){
 		this.playlist = [];
 		this.playlist = newPlaylist;
@@ -193,28 +229,84 @@ let newArray = ['songs/Before.mp3', 'songs/Igor.mp3',
 
 let objectSongs = [{songTitle: 'Before',
 									  artist: 'Smoggy Bear',
-									  analBumCover: 'albumCovers/.jpg',
+									  analBumCover: 'albumCovers/andrew.jpg',
 									  url: 'songs/Before.mp3'},
 
 									  {songTitle: 'Igor',
 									  artist: 'Baz Amataz',
-									  analBumCover: 'albumCovers/.jpg',
+									  analBumCover: 'albumCovers/black.jpg',
 									  url: 'songs/Igor.mp3'},
 
 									  {songTitle: 'Lipstick',
 									  artist: 'Quizmistress',
-									  analBumCover: 'albumCovers/.jpg',
+									  analBumCover: 'albumCovers/candles.jpg',
 									  url: 'songs/Lipstick.mp3'},
 
 									  {songTitle: 'Still',
 									  artist: 'Moog',
-									  analBumCover: 'albumCovers/.jpg',
+									  analBumCover: 'albumCovers/cat.jpg',
 									  url: 'songs/Still.mp3'},
 
 									  {songTitle: 'Survive',
 									  artist: 'Frill 5 and the Gib-Dogs',
-									  analBumCover: 'albumCovers/.jpg',
-									  url: 'songs/Survive.mp3'},];
+									  analBumCover: 'albumCovers/catclipse.jpg',
+									  url: 'songs/Survive.mp3'},
+
+									  {songTitle: 'Anitek',
+									  artist: 'The Dope One',
+									  analBumCover: 'albumCovers/copper.jpg',
+									  url: 'songs/Anitek.mp3'},
+
+									  {songTitle: 'Cig Brek',
+									  artist: 'Mullet Man',
+									  analBumCover: 'albumCovers/crane.jpg',
+									  url: 'songs/Craze.mp3'},
+
+									  {songTitle: 'Math',
+									  artist: 'Juniper Toprock',
+									  analBumCover: 'albumCovers/donut.jpg',
+									  url: 'songs/Math.mp3'},
+
+									  {songTitle: 'Rose',
+									  artist: 'Slack Bage',
+									  analBumCover: 'albumCovers/drugs.jpg',
+									  url: 'songs/Rose.mp3'},
+
+									  {songTitle: 'Ski',
+									  artist: 'Donkeyteeth',
+									  analBumCover: 'albumCovers/fireworks.jpg',
+									  url: 'songs/Ski.mp3'},
+
+									  {songTitle: 'Stay',
+									  artist: 'Jo Smith and the Smithtones',
+									  analBumCover: 'albumCovers/hackin.jpg',
+									  url: 'songs/Stay.mp3'},
+
+									  {songTitle: 'Tonton',
+									  artist: 'OJ Simpson',
+									  analBumCover: 'albumCovers/kermit.jpg',
+									  url: 'songs/Tonton.mp3'},
+
+									  {songTitle: 'Wasaru',
+									  artist: 'Random Three Words',
+									  analBumCover: 'albumCovers/liberty.jpg',
+									  url: 'songs/Wasaru.mp3'},
+
+									  {songTitle: 'Snoof',
+									  artist: 'Ring Bear',
+									  analBumCover: 'albumCovers/lilly.jpg',
+									  url: 'songs/Snoof.mp3'},
+
+									  {songTitle: 'Boof',
+									  artist: 'Legen',
+									  analBumCover: 'albumCovers/rain.jpg',
+									  url: 'songs/Boof.mp3'},
+
+									  {songTitle: 'Madix',
+									  artist: 'Dairy',
+									  analBumCover: 'albumCovers/red.jpg',
+									  url: 'songs/Madix.mp3'},
+									  ];
 
 
 
