@@ -4,50 +4,65 @@ class Jukebox {
     this.songNo = 0;
     this.current = this.playlist[this.songNo].url;
 
+    // Create Div to hold and style jukebox contents
+    let playbox = document.createElement('DIV');
+    document.body.appendChild(playbox);
+    playbox.setAttribute('style', 'margin: 0 auto; text-align: center; background: #4ABDAC; padding: 20px; border: 3px solid #F7B733;');
+
     // Create buttons list
 
-    // Play Button
+    // Back Button
+    let back = document.createElement('div');
+		back.textContent = "⇦";
+		back.setAttribute('id', 'back');
+		back.setAttribute('class', 'controls');
+		back.setAttribute('style', 'width: 200px; height: 30px; font-size: 1.3em; display: inline; border: 2px solid #F7B733; line-height: 30px; text-align: center; color: ghostwhite; margin: 10px; padding: 5px; background: #FC4A1A; border-radius: 5px;');
+		playbox.appendChild(back);
+		back.addEventListener('click', () => { this.previousSong() });
+		// End Back Button
+
+
+		// Stop Button
+    let stop = document.createElement('div');
+		stop.innerHTML = "<b>&#x23f5</b>";
+		stop.setAttribute('id', 'stop');
+		stop.setAttribute('class', 'controls');
+		stop.setAttribute('style', 'width: 200px; height: 30px; font-size: 1.3em; display: inline; border: 2px solid #F7B733; line-height: 30px; text-align: center; color: ghostwhite; margin: 10px; padding: 5px; background: #FC4A1A; border-radius: 5px;');
+		playbox.appendChild(stop);
+		stop.addEventListener('click', () => { this.loadSong(); });
+		// End Stop Button
+
+		// Play Button
     let play = document.createElement('div');
-		play.textContent = "Play";
+		play.innerHTML = "<b>&#9655</b>"
 		play.setAttribute('id', 'play');
-		document.body.appendChild(play);
+		play.setAttribute('class', 'controls');
+		play.setAttribute('style', 'width: 200px; height: 30px; font-size: 1.3em; display: inline; border: 2px solid #F7B733; line-height: 30px; text-align: center; color: ghostwhite; margin: 10px; padding: 5px; background: #FC4A1A; border-radius: 5px;');
+		playbox.appendChild(play);
 		play.addEventListener('click', () => { this.playSong() });
 		// End Play Button
 
 		// Pause Button
     let pause = document.createElement('div');
-		pause.textContent = "Pause";
+		pause.innerHTML = "<b>&#8545;</b>";
 		pause.setAttribute('id', 'play');
-		document.body.appendChild(pause);
+		play.setAttribute('class', 'controls');
+		pause.setAttribute('style', 'width: 200px; height: 30px; font-size: 1.3em; display: inline; border: 2px solid #F7B733; line-height: 30px; text-align: center; color: ghostwhite; margin: 10px; padding: 5px; background: #FC4A1A; border-radius: 5px;');
+		playbox.appendChild(pause);
 		pause.addEventListener('click', () => { this.pauseSong() });
 		// End Pause Button
 
 
-		// Stop Button
-    let stop = document.createElement('div');
-		stop.textContent = "Stop";
-		stop.setAttribute('id', 'stop');
-		document.body.appendChild(stop);
-		stop.addEventListener('click', () => { this.loadSong(); });
-		// End Stop Button
-
-
 		// Next Button
     let next = document.createElement('div');
-		next.textContent = "Next";
+		next.textContent = "⇨";
 		next.setAttribute('id', 'next');
-		document.body.appendChild(next);
+		next.setAttribute('class', 'controls');
+		next.setAttribute('style', 'width: 200px; height: 30px; font-size: 1.3em; display: inline; border: 2px solid #F7B733; line-height: 30px; text-align: center; color: ghostwhite; margin: 10px; padding: 5px; background: #FC4A1A; border-radius: 5px;');
+		playbox.appendChild(next);
 		next.addEventListener('click', () => { this.nextSong() });
 		// End Next Button
 
-
-		// Back Button
-    let back = document.createElement('div');
-		back.textContent = "Back";
-		back.setAttribute('id', 'back');
-		document.body.appendChild(back);
-		back.addEventListener('click', () => { this.previousSong() });
-		// End Back Button
 
 		// End of Buttons
 
@@ -56,30 +71,37 @@ class Jukebox {
 		let songTimer = document.createElement('div');
 		songTimer.textContent = "0 / 0";
 		songTimer.setAttribute('id', 'songTimer');
-		document.body.appendChild(songTimer);
+		songTimer.setAttribute('class', 'display');
+		songTimer.setAttribute('style', 'width: 200px; height: 30px; font-size: 1.3em; border: 2px solid #F7B733; line-height: 30px; text-align: center; color: ghostwhite; margin: 5px auto; margin-top: 15px; padding: 5px; background: #FC4A1A; border-radius: 5px;');
+		playbox.appendChild(songTimer);
 
 		// Display Songs
 		
 		let displaySongs = document.createElement('div');
 		displaySongs.textContent = "---";
 		displaySongs.setAttribute('id', 'displaySongs');
-		document.body.appendChild(displaySongs);
+		displaySongs.setAttribute('class', 'display');
+		displaySongs.setAttribute('style', 'width: 600px; height: 30px; font-size: 1.3em; border: 2px solid #F7B733; line-height: 30px; text-align: center; color: ghostwhite; margin: 5px auto; padding: 5px; background: #FC4A1A; border-radius: 5px;');
+		playbox.appendChild(displaySongs);
 
 		// Display Artist
 
 		let displayArtist = document.createElement('div');
 		displayArtist.textContent = "---";
 		displayArtist.setAttribute('id', 'displayArtist');
-		document.body.appendChild(displayArtist);
+		displayArtist.setAttribute('class', 'display');
+		displayArtist.setAttribute('style', 'width: 600px; height: 30px; font-size: 1.3em; border: 2px solid #F7B733; line-height: 30px; text-align: center; color: ghostwhite; margin: 5px auto; padding: 5px; background: #FC4A1A; border-radius: 5px;');
+		playbox.appendChild(displayArtist);
 
 		// Display Album Cover
 
 		let displayAlbumCover = document.createElement('img');
 		displayAlbumCover.textContent = "---";
 		displayAlbumCover.setAttribute('id', 'displayAlbumCover');
+		displayAlbumCover.setAttribute('class', 'display');
 		displayAlbumCover.setAttribute('src', `${this.playlist[this.songNo].analBumCover}`);
-		displayAlbumCover.setAttribute('style', 'width: 200px; height: 200px;');
-		document.body.appendChild(displayAlbumCover);
+		displayAlbumCover.setAttribute('style', 'width: 200px; height: 200px; padding: 10px; border: 2px solid #F7B733; background: ghostwhite;');
+		playbox.appendChild(displayAlbumCover);
 
 
     this.audioElement = document.createElement('audio');
@@ -168,7 +190,7 @@ class Jukebox {
 			else {
 				lastSong =  this.playlist[this.songNo - 1].songTitle;
 			}
-		let display = `${lastSong} || <strong>${this.playlist[this.songNo].songTitle}</strong> || ${this.playlist[(this.songNo + 1) % this.playlist.length].songTitle}`;
+		let display = `${lastSong} || <span style="font-weight: bold; color: #88D317;">${this.playlist[this.songNo].songTitle}</span> || ${this.playlist[(this.songNo + 1) % this.playlist.length].songTitle}`;
 		displaySongs.innerHTML = display;
 	}
 
@@ -180,14 +202,14 @@ class Jukebox {
 			else {
 				lastArtist =  this.playlist[this.songNo - 1].artist;
 			}
-		let display = `${lastArtist} || <strong>${this.playlist[this.songNo].artist}</strong> || ${this.playlist[(this.songNo + 1) % this.playlist.length].artist}`;
+		let display = `${lastArtist} ||   <span style="font-weight: bold; color: #88D317;">${this.playlist[this.songNo].artist}</span>   || ${this.playlist[(this.songNo + 1) % this.playlist.length].artist}`;
 		displayArtist.innerHTML = display;
 	}
 
 	displayAlbumCover(){
 		
 		displayAlbumCover.setAttribute('src', `${this.playlist[this.songNo].analBumCover}`);
-		displayAlbumCover.setAttribute('style', 'width:200px; height:200px;');
+		displayAlbumCover.setAttribute('style', 'width: 200px; height: 200px; padding: 10px; border: 2px solid #F7B733; background: ghostwhite;');
 	}
 
 	addPlaylist(newPlaylist){
