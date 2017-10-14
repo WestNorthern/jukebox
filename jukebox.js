@@ -12,7 +12,7 @@ class Jukebox {
 
     let playbox = document.createElement('div');
     document.body.appendChild(playbox);
-    playbox.setAttribute('style', 'margin: 0 auto; text-align: center; background: #4ABDAC; padding: 20px; border: 3px solid #F7B733;');
+    playbox.setAttribute('style', 'margin: 0 auto; text-align: center; background: #4ABDAC; padding: 20px; border: 3px solid #F7B733; font-family: "Josefin Sans"');
 
     // Create buttons list
 
@@ -63,10 +63,12 @@ class Jukebox {
 		next.textContent = "⇨";
 		next.setAttribute('id', 'next');
 		next.setAttribute('class', 'controls');
-		next.setAttribute('style', 'width: 200px; height: 30px; font-size: 1.3em; display: inline; border: 2px solid #F7B733; line-height: 30px; text-align: center; color: ghostwhite; margin: 10px; padding: 5px; background: #FC4A1A; border-radius: 5px;');
+		next.setAttribute('style', 'width: 200px; height: 30px; font-size: 1.3em; display: inline; border: 2px solid #F7B733; line-height: 30px; text-align: center; color: ghostwhite; margin: 10px; padding: 5px; background: #FC4A1A; border-radius: 5px; position: relative;');
 		playbox.appendChild(next);
 		next.addEventListener('click', () => { this.nextSong() });
 		// End Next Button
+
+		
 
 
 		// End of Buttons
@@ -77,7 +79,7 @@ class Jukebox {
 		songTimer.textContent = "0 / 0";
 		songTimer.setAttribute('id', 'songTimer');
 		songTimer.setAttribute('class', 'display');
-		songTimer.setAttribute('style', 'width: 200px; height: 30px; font-size: 1.3em; border: 2px solid #F7B733; line-height: 30px; text-align: center; color: ghostwhite; margin: 5px auto; margin-top: 15px; padding: 5px; background: #FC4A1A; border-radius: 5px;');
+		songTimer.setAttribute('style', 'width: 200px; height: 30px; font-size: 1.3em; border: 2px solid #F7B733; line-height: 30px; text-align: center; color: ghostwhite; margin: 5px auto; margin-top: 15px; padding: 5px; background: #FC4A1A; border-radius: 5px; margin-bottom: 25px; position: relative;');
 		playbox.appendChild(songTimer);
     this.audioElement.addEventListener('timeupdate', function(){
     	let currentMin = Math.floor(this.currentTime / 60).toString();
@@ -99,14 +101,44 @@ class Jukebox {
 
     });
 
+    // Time Bars
+
+    let timerBars = document.createElement('div');
+		timerBars.setAttribute('id', 'timerBars');
+		timerBars.setAttribute('style', 'width: 200px; position: relative; margin: 0 auto;');
+		playbox.appendChild(timerBars);
+
+
+    let timePlayed = document.createElement('div');
+    timePlayed.setAttribute('id', 'timePlayed');
+    timePlayed.setAttribute('style', 'width: 0%; height: 10px; background: limegreen; position: absolute; left: 0; top: -20px; z-index: 2;')
+    timerBars.appendChild(timePlayed);
+
+    let timeLeft = document.createElement('div');
+    timeLeft.setAttribute('id', 'timeLeft');
+    timeLeft.setAttribute('style', 'width: 100%; height: 10px; background: ghostwhite; position: absolute; left: 0; top: -20px; z-index: 1;')
+    timerBars.appendChild(timeLeft);
+
+    this.audioElement.addEventListener('timeupdate', function(){
+    	let completedPercentage = (this.currentTime / this.duration) * 100;
+
+    	document.getElementById('timePlayed').setAttribute('style', `width: ${completedPercentage}%; height: 10px; background: limegreen; position: absolute; left: 0; top: -20px; z-index: 2;`);
+    
+    });
+    
+
 		// Display Songs
 		
 		let displaySongs = document.createElement('div');
 		displaySongs.textContent = "---";
 		displaySongs.setAttribute('id', 'displaySongs');
 		displaySongs.setAttribute('class', 'display');
-		displaySongs.setAttribute('style', 'width: 300px; height: 30px; font-size: 1.3em; border: 2px solid #F7B733; line-height: 30px; text-align: center; color: ghostwhite; margin: 5px auto; padding: 5px; background: #FC4A1A; border-radius: 5px;');
+		displaySongs.setAttribute('style', 'width: 300px; height: 30px; font-size: 1.3em; border: 2px solid #F7B733; line-height: 30px; text-align: center; color: ghostwhite; margin: 5px auto; padding: 5px; background: #FC4A1A; border-radius: 5px; position: relative;');
 		playbox.appendChild(displaySongs);
+
+		
+
+    
 
 		// Display Artist
 
