@@ -5,6 +5,7 @@ class Jukebox {
     this.current = this.playlist[this.songNo].url;
 
     // Create audio element
+
 		this.audioElement = document.createElement('audio');
 		this.loadSong();
 
@@ -67,9 +68,6 @@ class Jukebox {
 		playbox.appendChild(next);
 		next.addEventListener('click', () => { this.nextSong() });
 		// End Next Button
-
-		
-
 
 		// End of Buttons
 
@@ -159,6 +157,16 @@ class Jukebox {
 		displayAlbumCover.setAttribute('style', 'width: 200px; height: 200px; padding: 10px; border: 2px solid #F7B733; background: ghostwhite;');
 		playbox.appendChild(displayAlbumCover);
 
+		// Random Button
+    let randomSong = document.createElement('div');
+		randomSong.innerText = "Random";
+		randomSong.setAttribute('id', 'randomSong');
+		randomSong.setAttribute('class', 'controls');
+		randomSong.setAttribute('style', 'width: 200px; height: 30px; font-size: 1.3em; display: inline; border: 2px solid #F7B733; line-height: 30px; text-align: center; color: ghostwhite; margin: 10px; padding: 5px; background: #FC4A1A; border-radius: 5px;');
+		playbox.appendChild(randomSong);
+		randomSong.addEventListener('click', () => { this.randomSong() });
+		// End Pause Button
+
 
     // Goes to next song (requires ES 6 arrow function)
 
@@ -179,10 +187,9 @@ class Jukebox {
 
     });
 
-	}
+	} // End of constructor
 
 	playSong(){
-		// this.audioElement.load();
 		this.audioElement.play();
 		this.displaySongs();
 		this.displayArtist();
@@ -267,8 +274,15 @@ class Jukebox {
 		this.playlist = [];
 		this.playlist = newPlaylist;
 	}
+	randomSong(){
+
+		this.songNo = Math.floor(Math.random() * (this.playlist.length - 1));
+		this.current = this.playlist[this.songNo].url;
+		this.loadSong();
+		this.playSong();
+	}
 	
-}
+} // End of Jukebox Class
 
 class Playlist{
 	constructor(){
@@ -285,6 +299,7 @@ class Playlist{
 	removeSong(){
 
 	}
+
 }
 
 
