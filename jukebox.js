@@ -65,10 +65,21 @@ class Jukebox {
 		displaySongs.setAttribute('id', 'displaySongs');
 		document.body.appendChild(displaySongs);
 
+		// Display Artist
+
 		let displayArtist = document.createElement('div');
 		displayArtist.textContent = "---";
 		displayArtist.setAttribute('id', 'displayArtist');
 		document.body.appendChild(displayArtist);
+
+		// Display Album Cover
+
+		let displayAlbumCover = document.createElement('img');
+		displayAlbumCover.textContent = "---";
+		displayAlbumCover.setAttribute('id', 'displayAlbumCover');
+		displayAlbumCover.setAttribute('src', `${this.playlist[this.songNo].analBumCover}`);
+		displayAlbumCover.setAttribute('style', 'width: 200px; height: 200px;');
+		document.body.appendChild(displayAlbumCover);
 
 
     this.audioElement = document.createElement('audio');
@@ -102,6 +113,7 @@ class Jukebox {
 		this.audioElement.play();
 		this.displaySongs();
 		this.displayArtist();
+		this.displayAlbumCover();
 	}
 
 	pauseSong(){
@@ -170,6 +182,12 @@ class Jukebox {
 			}
 		let display = `${lastArtist} || <strong>${this.playlist[this.songNo].artist}</strong> || ${this.playlist[(this.songNo + 1) % this.playlist.length].artist}`;
 		displayArtist.innerHTML = display;
+	}
+
+	displayAlbumCover(){
+		
+		displayAlbumCover.setAttribute('src', `${this.playlist[this.songNo].analBumCover}`);
+		displayAlbumCover.setAttribute('style', 'width:200px; height:200px;');
 	}
 
 	addPlaylist(newPlaylist){
