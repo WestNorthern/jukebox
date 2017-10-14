@@ -77,7 +77,7 @@ class Jukebox {
 		songTimer.textContent = "0 / 0";
 		songTimer.setAttribute('id', 'songTimer');
 		songTimer.setAttribute('class', 'display');
-		songTimer.setAttribute('style', 'width: 200px; height: 30px; font-size: 1.3em; border: 2px solid #F7B733; line-height: 30px; text-align: center; color: ghostwhite; margin: 5px auto; margin-top: 15px; padding: 5px; background: #FC4A1A; border-radius: 5px;');
+		songTimer.setAttribute('style', 'width: 200px; height: 30px; font-size: 1.3em; border: 2px solid #F7B733; line-height: 30px; text-align: center; color: ghostwhite; margin: 5px auto; margin-top: 15px; padding: 5px; background: #FC4A1A; border-radius: 5px; margin-bottom: 60px; position: relative;');
 		playbox.appendChild(songTimer);
     this.audioElement.addEventListener('timeupdate', function(){
     	let currentMin = Math.floor(this.currentTime / 60).toString();
@@ -98,6 +98,19 @@ class Jukebox {
     	document.getElementById('songTimer').innerHTML = `${currentMin}:${currentSec} // ${durationMin}:${durationSec}`;
 
     });
+    // Time Bars
+
+    // width percentage = currentTime/Total time for current, inverted for left
+
+    let timePlayed = document.createElement('div');
+    timePlayed.setAttribute('id', 'timePlayed');
+    timePlayed.setAttribute('style', 'width: 0%; height: 10px; background: limegreen; position: absolute; left: 0; top: 120%; z-index: 2;')
+    songTimer.appendChild(timePlayed);
+
+    let timeLeft = document.createElement('div');
+    timeLeft.setAttribute('id', 'timeLeft');
+    timeLeft.setAttribute('style', 'width: 100%; height: 10px; background: ghostwhite; position: absolute; left: 0; top: 120%; z-index: 1;')
+    songTimer.appendChild(timeLeft);
 
 		// Display Songs
 		
