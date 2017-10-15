@@ -261,7 +261,8 @@ class Jukebox {
 	}
 
 	displaySongs(){
-			let lastSong = '---'
+			let lastSong = '---';
+			let nextSong = '---';
 			if (this.playlist[(this.songNo - 1)] == undefined){
 				lastSong = '---'
 			}
@@ -269,24 +270,31 @@ class Jukebox {
 				lastSong =  this.playlist[this.songNo - 1].songTitle;
 			}
 			if (this.playlist[(this.songNo + 1)] == undefined){
-				lastSong = '---'
+				nextSong = '---'
 			}
 			else {
-				lastSong =  this.playlist[this.songNo + 1].songTitle;
+				nextSong =  this.playlist[(this.songNo + 1) % this.playlist.length].songTitle;
 			}
-		let display = `${lastSong} || <span style="font-weight: bold; color: #88D317;">${this.playlist[this.songNo].songTitle}</span> || ${this.playlist[(this.songNo + 1) % this.playlist.length].songTitle}`;
+		let display = `${lastSong} || <span style="font-weight: bold; color: #88D317;">${this.playlist[this.songNo].songTitle}</span> || ${nextSong}`;
 		displaySongs.innerHTML = display;
 	}
 
 	displayArtist(){
-			let lastArtist = '---'
+			let lastArtist = '---';
+			let nextArtist = '---';
 			if (this.playlist[(this.songNo - 1)] == undefined){
 				lastArtist = '---'
 			}
 			else {
 				lastArtist =  this.playlist[this.songNo - 1].artist;
 			}
-		let display = `${lastArtist} ||   <span style="font-weight: bold; color: #88D317;">${this.playlist[this.songNo].artist}</span>   || ${this.playlist[(this.songNo + 1) % this.playlist.length].artist}`;
+			if (this.playlist[(this.songNo + 1)] == undefined){
+				nextArtist = '---'
+			}
+			else {
+				nextArtist =  this.playlist[(this.songNo + 1) % this.playlist.length].artist;
+			}
+		let display = `${lastArtist} || <span style="font-weight: bold; color: #88D317;">${this.playlist[this.songNo].artist}</span> || ${nextArtist}`;
 		displayArtist.innerHTML = display;
 	}
 
