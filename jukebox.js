@@ -147,6 +147,16 @@ class Jukebox {
 		displayArtist.setAttribute('style', 'width: 500px; height: 30px; font-size: 1.3em; border: 2px solid #F7B733; line-height: 30px; text-align: center; color: ghostwhite; margin: 5px auto; padding: 5px; background: #FC4A1A; border-radius: 5px;');
 		playbox.appendChild(displayArtist);
 
+		// Shuffle Button
+    let shufflePlaylist = document.createElement('div');
+		shufflePlaylist.innerText = "Shuffle";
+		shufflePlaylist.setAttribute('id', 'shufflePlaylist');
+		shufflePlaylist.setAttribute('class', 'controls');
+		shufflePlaylist.setAttribute('style', 'width: 200px; height: 30px; font-size: 1.3em; display: inline; border: 2px solid #F7B733; line-height: 30px; text-align: center; color: ghostwhite; margin: 10px; padding: 5px; background: #FC4A1A; border-radius: 5px;');
+		playbox.appendChild(shufflePlaylist);
+		shufflePlaylist.addEventListener('click', () => { this.shufflePlaylist() });
+		// End Random Button
+
 		// Display Album Cover
 
 		let displayAlbumCover = document.createElement('img');
@@ -165,7 +175,7 @@ class Jukebox {
 		randomSong.setAttribute('style', 'width: 200px; height: 30px; font-size: 1.3em; display: inline; border: 2px solid #F7B733; line-height: 30px; text-align: center; color: ghostwhite; margin: 10px; padding: 5px; background: #FC4A1A; border-radius: 5px;');
 		playbox.appendChild(randomSong);
 		randomSong.addEventListener('click', () => { this.randomSong() });
-		// End Pause Button
+		// End Random Button
 
 
     // Goes to next song (requires ES 6 arrow function)
@@ -281,6 +291,17 @@ class Jukebox {
 		this.loadSong();
 		this.playSong();
 	}
+	shufflePlaylist(){
+		for (let i = this.playlist.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [this.playlist[i], this.playlist[j]] = [this.playlist[j], this.playlist[i]];
+    }
+
+    this.current = this.playlist[0].url;
+		this.loadSong();
+		this.playSong();
+
+	}
 	
 } // End of Jukebox Class
 
@@ -299,8 +320,13 @@ class Playlist{
 	removeSong(){
 
 	}
-
-}
+	shufflePlaylist(){
+		for (let i = this.plist.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [this.plist[i], this.plist[j]] = [this.plist[j], this.plist[i]];
+    }
+  }
+} // End of Playlist Class
 
 
 
