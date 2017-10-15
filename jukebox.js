@@ -326,12 +326,16 @@ class Playlist{
         [this.plist[i], this.plist[j]] = [this.plist[j], this.plist[i]];
     }
   }
+  addToOther(input){
+  	console.log('It has been clicked.');
+  	console.log(input);
+  }
   displayPlaylist(){
 
   	let displayBox = document.createElement('div');
   	displayBox.innerHTML = "<h1 style='text-align: center;'>All Songs</h1>";
     document.body.appendChild(displayBox);
-    displayBox.setAttribute('style', 'width: 43%; margin: 10px; text-align: left; background: #4ABDAC; padding: 20px; border: 3px solid #F7B733; font-family: "Josefin Sans"');
+    displayBox.setAttribute('style', 'width: 45%; margin: 5px; text-align: left; background: #4ABDAC; padding: 20px; border: 3px solid #F7B733; font-family: "Josefin Sans"; float: left;');
 
     let displaySongs = [];
     
@@ -342,12 +346,50 @@ class Playlist{
     	displayBox.appendChild(displaySongs[i]);
     }
   }
+} // End of Playlist Class
+
+class Custom{
+	constructor(){
+		this.plist = [];
+	}
+	addSong(song){
+		this.plist.push(song);
+	}
+	addSongs(songs){
+		for (var i = 0; i < songs.length; i++) {
+			this.plist.push(songs[i]);
+		}
+	}
+	removeSong(){
+
+	}
+	shufflePlaylist(){
+		for (let i = this.plist.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [this.plist[i], this.plist[j]] = [this.plist[j], this.plist[i]];
+    }
+  }
   addToOther(input){
   	console.log('It has been clicked.');
   	console.log(input);
   }
-} // End of Playlist Class
+  displayPlaylist(){
 
+  	let displayBox = document.createElement('div');
+  	displayBox.innerHTML = "<h1 style='text-align: center; color: ghostwhite:'>Custom Playlist</h1>";
+    document.body.appendChild(displayBox);
+    displayBox.setAttribute('style', 'width: 45%; margin: 5px; text-align: left; background: #4ABDAC; padding: 20px; border: 3px solid #F7B733; font-family: "Josefin Sans"; float: left;');
+
+    let displaySongs = [];
+    
+    for (var i = 0; i < this.plist.length; i++) {
+    	displaySongs[i] = document.createElement('div');
+    	displaySongs[i].innerHTML = `${this.plist[i].songTitle} by ${this.plist[i].artist} <span id="song${i}" style="float: right; color: salmon;" onclick="displayTest.addToOther(${i})">Remove</span>`;
+    	displaySongs[i].setAttribute('style', 'width: auto; height: 30px; font-size: 1.1em; display:block; border: 2px solid #F7B733; line-height: 30px; text-align: left; color: ghostwhite; margin: 10px; padding: 5px; background: #FC4A1A; border-radius: 5px;');
+    	displayBox.appendChild(displaySongs[i]);
+    }
+  }
+} // End of Custom Class
 
 
 let songArray = ['songs/Anitek.mp3', 'songs/CigBrek.mp3', 
@@ -443,7 +485,32 @@ let objectSongs = [{songTitle: 'Before',
 									  ];
 
 
+// class allSongs extends Playlist{
+// 	constructor(){
+// 		super();
+// 		super.addSongs();
+// 		super.plist;
+// 	}
+// 	addToOther(input){
+//   	console.log('It has been clicked.');
+//   	console.log(input);
+//   }
+//   displayPlaylist(){
 
+//   	let displayBox = document.createElement('div');
+//   	displayBox.innerHTML = "<h1 style='text-align: center;'>All Songs</h1>";
+//     document.body.appendChild(displayBox);
+//     displayBox.setAttribute('style', 'width: 43%; margin: 10px; text-align: left; background: #4ABDAC; padding: 20px; border: 3px solid #F7B733; font-family: "Josefin Sans"');
+
+//     let displaySongs = [];
+    
+//     for (var i = 0; i < this.plist.length; i++) {
+//     	displaySongs[i] = document.createElement('div');
+//     	displaySongs[i].innerHTML = `${this.plist[i].songTitle} by ${this.plist[i].artist} <span id="song${i}" style="float: right; color: salmon;" onclick="displayTest.addToOther(${i})">Add</span>`;
+//     	displaySongs[i].setAttribute('style', 'width: auto; height: 30px; font-size: 1.1em; display:block; border: 2px solid #F7B733; line-height: 30px; text-align: left; color: ghostwhite; margin: 10px; padding: 5px; background: #FC4A1A; border-radius: 5px;');
+//     	displayBox.appendChild(displaySongs[i]);
+//     }
+//   }
 
 
 
@@ -451,9 +518,13 @@ let myJuke = new Jukebox(objectSongs);
 
 
 let displayTest = new Playlist();
+let customList = new Custom();
 
 displayTest.addSongs(objectSongs);
 displayTest.displayPlaylist();
+
+customList.displayPlaylist();
+
 
 // myJuke.addPlaylist(newArray);
 
