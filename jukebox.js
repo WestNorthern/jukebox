@@ -299,6 +299,8 @@ class Jukebox {
 	addPlaylist(newPlaylist){
 		this.playlist = [];
 		this.playlist = newPlaylist;
+		this.current = this.playlist[0].url;
+		this.loadSong();
 	}
 	randomSong(){
 
