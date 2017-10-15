@@ -326,6 +326,26 @@ class Playlist{
         [this.plist[i], this.plist[j]] = [this.plist[j], this.plist[i]];
     }
   }
+  displayPlaylist(){
+
+  	let displayBox = document.createElement('div');
+  	displayBox.innerHTML = "<h1 style='text-align: center;'>All Songs</h1>";
+    document.body.appendChild(displayBox);
+    displayBox.setAttribute('style', 'width: 43%; margin: 10px; text-align: left; background: #4ABDAC; padding: 20px; border: 3px solid #F7B733; font-family: "Josefin Sans"');
+
+    let displaySongs = [];
+    
+    for (var i = 0; i < this.plist.length; i++) {
+    	displaySongs[i] = document.createElement('div');
+    	displaySongs[i].innerHTML = `${this.plist[i].songTitle} by ${this.plist[i].artist} <span id="song${i}" style="float: right; color: salmon;" onclick="displayTest.addToOther(${i})">Add</span>`;
+    	displaySongs[i].setAttribute('style', 'width: auto; height: 30px; font-size: 1.1em; display:block; border: 2px solid #F7B733; line-height: 30px; text-align: left; color: ghostwhite; margin: 10px; padding: 5px; background: #FC4A1A; border-radius: 5px;');
+    	displayBox.appendChild(displaySongs[i]);
+    }
+  }
+  addToOther(input){
+  	console.log('It has been clicked.');
+  	console.log(input);
+  }
 } // End of Playlist Class
 
 
@@ -424,7 +444,16 @@ let objectSongs = [{songTitle: 'Before',
 
 
 
+
+
+
 let myJuke = new Jukebox(objectSongs);
+
+
+let displayTest = new Playlist();
+
+displayTest.addSongs(objectSongs);
+displayTest.displayPlaylist();
 
 // myJuke.addPlaylist(newArray);
 
