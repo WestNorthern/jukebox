@@ -177,6 +177,16 @@ class Jukebox {
 		randomSong.addEventListener('click', () => { this.randomSong() });
 		// End Random Button
 
+		// Load Custom Playlist
+    let addPlaylist = document.createElement('div');
+		addPlaylist.innerText = "Load Custom Playlist";
+		addPlaylist.setAttribute('id', 'addPlaylist');
+		addPlaylist.setAttribute('class', 'controls');
+		addPlaylist.setAttribute('style', 'width: 200px; height: 30px; font-size: 1.3em; display: block; border: 2px solid #F7B733; line-height: 30px; text-align: center; color: ghostwhite; margin: 10px; padding: 5px; background: #FC4A1A; border-radius: 5px; margin: 0 auto;');
+		playbox.appendChild(addPlaylist);
+		addPlaylist.addEventListener('click', () => { this.addPlaylist(customList.plist) });
+		// End Random Button
+
 
     // Goes to next song (requires ES 6 arrow function)
 
@@ -257,6 +267,12 @@ class Jukebox {
 			}
 			else {
 				lastSong =  this.playlist[this.songNo - 1].songTitle;
+			}
+			if (this.playlist[(this.songNo + 1)] == undefined){
+				lastSong = '---'
+			}
+			else {
+				lastSong =  this.playlist[this.songNo + 1].songTitle;
 			}
 		let display = `${lastSong} || <span style="font-weight: bold; color: #88D317;">${this.playlist[this.songNo].songTitle}</span> || ${this.playlist[(this.songNo + 1) % this.playlist.length].songTitle}`;
 		displaySongs.innerHTML = display;
