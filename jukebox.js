@@ -308,6 +308,11 @@ class Jukebox {
 class Playlist{
 	constructor(){
 		this.plist = [];
+		this.displayBox = document.createElement('div');
+  	this.displayBox.innerHTML = "<h1 style='color: ghostwhite; text-align: center;'>All Songs</h1>";
+    document.body.appendChild(this.displayBox);
+    this.displayBox.setAttribute('style', 'width: 45%; margin: 5px; text-align: left; background: #4ABDAC; padding: 20px; border: 3px solid #F7B733; font-family: "Josefin Sans"; float: left;');
+    this.displayBox.setAttribute('id', 'songBox');
 	}
 	addSong(song){
 		this.plist.push(song);
@@ -317,8 +322,11 @@ class Playlist{
 			this.plist.push(songs[i]);
 		}
 	}
-	removeSong(){
-
+	removeSong(songNum){
+		let removedSong = this.plist[songNum];
+		console.log(removedSong);
+		this.plist.splice(songNum, 1);
+		return removedSong;
 	}
 	shufflePlaylist(){
 		for (let i = this.plist.length - 1; i > 0; i--) {
@@ -329,13 +337,18 @@ class Playlist{
   addToOther(input){
   	console.log('It has been clicked.');
   	console.log(input);
+  	let removedSong = this.plist[input];
+		console.log(removedSong);
+		customList.addSong(removedSong);
+		this.plist.splice(input, 1);
+		this.displayPlaylist();
+		customList.displayPlaylist();
+  	
   }
   displayPlaylist(){
 
-  	let displayBox = document.createElement('div');
-  	displayBox.innerHTML = "<h1 style='text-align: center;'>All Songs</h1>";
-    document.body.appendChild(displayBox);
-    displayBox.setAttribute('style', 'width: 45%; margin: 5px; text-align: left; background: #4ABDAC; padding: 20px; border: 3px solid #F7B733; font-family: "Josefin Sans"; float: left;');
+  	let songBox = document.getElementById('songBox');
+		songBox.innerHTML = "<h1 style='color: ghostwhite; text-align: center;'>All Songs</h1>";
 
     let displaySongs = [];
     
@@ -343,7 +356,7 @@ class Playlist{
     	displaySongs[i] = document.createElement('div');
     	displaySongs[i].innerHTML = `${this.plist[i].songTitle} by ${this.plist[i].artist} <span id="song${i}" style="float: right; color: salmon;" onclick="displayTest.addToOther(${i})">Add</span>`;
     	displaySongs[i].setAttribute('style', 'width: auto; height: 30px; font-size: 1.1em; display:block; border: 2px solid #F7B733; line-height: 30px; text-align: left; color: ghostwhite; margin: 10px; padding: 5px; background: #FC4A1A; border-radius: 5px;');
-    	displayBox.appendChild(displaySongs[i]);
+    	this.displayBox.appendChild(displaySongs[i]);
     }
   }
 } // End of Playlist Class
@@ -351,6 +364,11 @@ class Playlist{
 class Custom{
 	constructor(){
 		this.plist = [];
+		this.displayBox = document.createElement('div');
+  	this.displayBox.innerHTML = "<h1 style='text-align: center; color: ghostwhite;'>Custom Playlist</h1>";
+    document.body.appendChild(this.displayBox);
+    this.displayBox.setAttribute('style', 'width: 45%; margin: 5px; text-align: left; background: #4ABDAC; padding: 20px; border: 3px solid #F7B733; font-family: "Josefin Sans"; float: left;');
+    this.displayBox.setAttribute('id', 'customBox');
 	}
 	addSong(song){
 		this.plist.push(song);
@@ -360,8 +378,11 @@ class Custom{
 			this.plist.push(songs[i]);
 		}
 	}
-	removeSong(){
-
+	removeSong(songNum){
+		let removedSong = this.plist[songNum];
+		console.log(removedSong);
+		this.plist.splice(songNum, 1);
+		return removedSong;
 	}
 	shufflePlaylist(){
 		for (let i = this.plist.length - 1; i > 0; i--) {
@@ -372,21 +393,24 @@ class Custom{
   addToOther(input){
   	console.log('It has been clicked.');
   	console.log(input);
+  	let removedSong = this.plist[input];
+		console.log(removedSong);
+		displayTest.addSong(removedSong);
+		this.plist.splice(input, 1);
+		this.displayPlaylist();
+		displayTest.displayPlaylist();
   }
   displayPlaylist(){
-
-  	let displayBox = document.createElement('div');
-  	displayBox.innerHTML = "<h1 style='text-align: center; color: ghostwhite:'>Custom Playlist</h1>";
-    document.body.appendChild(displayBox);
-    displayBox.setAttribute('style', 'width: 45%; margin: 5px; text-align: left; background: #4ABDAC; padding: 20px; border: 3px solid #F7B733; font-family: "Josefin Sans"; float: left;');
+  	let customBox = document.getElementById('customBox');
+		customBox.innerHTML = "<h1 style='color: ghostwhite; text-align: center;'>Custom Playlist</h1>";
 
     let displaySongs = [];
     
     for (var i = 0; i < this.plist.length; i++) {
     	displaySongs[i] = document.createElement('div');
-    	displaySongs[i].innerHTML = `${this.plist[i].songTitle} by ${this.plist[i].artist} <span id="song${i}" style="float: right; color: salmon;" onclick="displayTest.addToOther(${i})">Remove</span>`;
+    	displaySongs[i].innerHTML = `${this.plist[i].songTitle} by ${this.plist[i].artist} <span id="song${i}" style="float: right; color: salmon;" onclick="customList.addToOther(${i})">Remove</span>`;
     	displaySongs[i].setAttribute('style', 'width: auto; height: 30px; font-size: 1.1em; display:block; border: 2px solid #F7B733; line-height: 30px; text-align: left; color: ghostwhite; margin: 10px; padding: 5px; background: #FC4A1A; border-radius: 5px;');
-    	displayBox.appendChild(displaySongs[i]);
+    	this.displayBox.appendChild(displaySongs[i]);
     }
   }
 } // End of Custom Class
