@@ -273,7 +273,7 @@ class Jukebox {
 				nextSong = '---'
 			}
 			else {
-				nextSong =  this.playlist[(this.songNo + 1) % this.playlist.length].songTitle;
+				nextSong =  this.playlist[this.songNo + 1].songTitle;
 			}
 		let display = `${lastSong} || <span style="font-weight: bold; color: #88D317;">${this.playlist[this.songNo].songTitle}</span> || ${nextSong}`;
 		displaySongs.innerHTML = display;
@@ -292,7 +292,7 @@ class Jukebox {
 				nextArtist = '---'
 			}
 			else {
-				nextArtist =  this.playlist[(this.songNo + 1) % this.playlist.length].artist;
+				nextArtist =  this.playlist[this.songNo + 1].artist;
 			}
 		let display = `${lastArtist} || <span style="font-weight: bold; color: #88D317;">${this.playlist[this.songNo].artist}</span> || ${nextArtist}`;
 		displayArtist.innerHTML = display;
